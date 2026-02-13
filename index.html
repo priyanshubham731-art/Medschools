@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ahana ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ffd1dc,#ffc0cb);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    width:90%;
+    max-width:420px;
+    position:relative;
+}
+
+.photo{
+    width:100%;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:26px;
+    margin-bottom:20px;
+}
+
+/* buttons layout fix */
+.button-row{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin-top:10px;
+}
+
+button{
+    padding:15px 25px;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+    position:relative; /* changed from absolute */
+}
+
+#yes{
+    background:#ff3b6b;
+    color:white;
+}
+
+#no{
+    background:#eee;
+}
+
+#celebrate{
+    display:none;
+}
+
+.gif{
+    width:100%;
+    border-radius:12px;
+    margin-top:15px;
+}
+
+/* floating hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0);}
+    to{transform:translateY(-110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+document.addEventListener("click", function(){
+    document.getElementById("music").play();
+});
+</script>
+
+<div class="card" id="question">
+    <img src="photo.jpg" class="photo">
+    <h1>Ahana will you be my Valentine? 🥹❤️</h1>
+
+    <!-- buttons wrapped so they don't overlap -->
+    <div class="button-row">
+        <button id="yes">Yes 💖</button>
+        <button id="no">No 🙈</button>
+    </div>
+</div>
+
+<div class="card" id="celebrate">
+    <h1>It's a date then 😍</h1>
+    <p>I knew you'd say yes ❤️</p>
+
+    <img class="gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+    <img class="gif" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+const noBtn = document.getElementById("no");
+
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random()*250;
+    const y = Math.random()*200;
+    noBtn.style.transform = `translate(-${x}px,-${y}px)`;
+});
+
+document.getElementById("yes").onclick = () => {
+    document.getElementById("question").style.display="none";
+    document.getElementById("celebrate").style.display="block";
+
+    confetti({
+        particleCount: 200,
+        spread: 120,
+        origin: { y: 0.6 }
+    });
+
+    for(let i=0;i<30;i++){
+        let heart = document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.animationDuration=(4+Math.random()*3)+"s";
+        document.body.appendChild(heart);
+    }
+};
+</script>
+
+</body>
+</html>
